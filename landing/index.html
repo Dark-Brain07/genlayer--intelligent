@@ -270,6 +270,181 @@
             from, to { border-color: transparent; }
             50% { border-color: var(--pixel-green); }
         }
+
+        /* === TERMINAL === */
+        .terminal-wrapper, .interact-wrapper {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .terminal {
+            background: #0a0a0f;
+            border: 2px solid #222;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #1a1a22;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+        }
+        .terminal-dot.red { background: #ff5f57; }
+        .terminal-dot.yellow { background: #febc2e; }
+        .terminal-dot.green { background: #28c840; }
+
+        .terminal-title {
+            margin-left: 10px;
+            font-size: 0.9rem;
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        .terminal-body {
+            padding: 16px;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .term-line {
+            margin-bottom: 4px;
+            word-break: break-all;
+        }
+
+        .prompt {
+            color: var(--pixel-green);
+            margin-right: 8px;
+        }
+
+        .term-success { color: var(--pixel-gold); }
+        .term-info { color: var(--pixel-cyan); }
+        .term-error { color: var(--pixel-red); }
+
+        .terminal-controls {
+            padding: 12px 16px;
+            border-top: 1px solid #222;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .term-btn {
+            padding: 8px 14px;
+            background: #1a1a2e;
+            color: var(--pixel-cyan);
+            border: 1px solid #333;
+            font-family: 'VT323', monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 1px;
+        }
+
+        .term-btn:hover {
+            border-color: var(--pixel-cyan);
+            box-shadow: 0 0 10px rgba(0,229,255,0.2);
+            transform: translateY(-1px);
+        }
+
+        /* === CONTRACT INTERACTION === */
+        .interact-panel {
+            background: #0a0a0f;
+            border: 2px solid #222;
+            padding: 24px;
+        }
+
+        .interact-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: var(--pixel-green);
+        }
+
+        .interact-icon { font-size: 1.4rem; }
+
+        .interact-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .interact-row label {
+            color: #666;
+            font-size: 1rem;
+            min-width: 140px;
+            letter-spacing: 1px;
+        }
+
+        .interact-row input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            background: #111;
+            border: 1px solid #333;
+            color: var(--pixel-cyan);
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .interact-row input:focus {
+            border-color: var(--pixel-cyan);
+            box-shadow: 0 0 8px rgba(0,229,255,0.15);
+        }
+
+        .interact-btn {
+            padding: 10px 20px;
+            background: #1a1a2e;
+            color: var(--pixel-gold);
+            border: 2px solid var(--pixel-gold);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 1px;
+        }
+
+        .interact-btn:hover {
+            background: var(--pixel-gold);
+            color: #000;
+        }
+
+        .interact-btn.secondary {
+            color: var(--pixel-cyan);
+            border-color: var(--pixel-cyan);
+        }
+
+        .interact-btn.secondary:hover {
+            background: var(--pixel-cyan);
+            color: #000;
+        }
+
+        .interact-result {
+            margin-top: 16px;
+            padding: 14px;
+            background: #080810;
+            border: 1px solid #1a1a2e;
+            min-height: 80px;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #888;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -398,6 +573,62 @@
             </div>
         </div>
 
+        <!-- === LIVE DATA TERMINAL === -->
+        <h2 class="section-title">LIVE DATA TERMINAL</h2>
+        <div class="section-line"></div>
+
+        <div class="terminal-wrapper">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">chain-quest-oracle-feed</span>
+                </div>
+                <div class="terminal-body" id="terminalBody">
+                    <div class="term-line"><span class="prompt">$</span> Waiting for commands...</div>
+                </div>
+                <div class="terminal-controls">
+                    <button class="term-btn" onclick="fetchBTC()">₿ BTC Price</button>
+                    <button class="term-btn" onclick="fetchETH()">⟠ ETH Price</button>
+                    <button class="term-btn" onclick="fetchSOL()">◎ SOL Price</button>
+                    <button class="term-btn" onclick="fetchBNB()">🪙 BNB Price</button>
+                    <button class="term-btn" onclick="fetchWeather()">🌡️ Weather</button>
+                    <button class="term-btn" onclick="fetchISS()">🛰️ ISS Position</button>
+                    <button class="term-btn" onclick="fetchCountry()">🌍 Country</button>
+                    <button class="term-btn" onclick="fetchAll()">⚡ FETCH ALL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- === CONTRACT INTERACTION === -->
+        <h2 class="section-title">CONTRACT INTERACTION</h2>
+        <div class="section-line"></div>
+
+        <div class="interact-wrapper">
+            <div class="interact-panel">
+                <div class="interact-header">
+                    <span class="interact-icon">🔗</span>
+                    <span>GenLayer StudioNet RPC</span>
+                </div>
+                <div class="interact-row">
+                    <label>Contract Address:</label>
+                    <input type="text" id="contractAddr" value="0x004DAA7BEcC8Ebf7A0829420e0F807376C6D9C33" placeholder="0x..." />
+                </div>
+                <div class="interact-row">
+                    <label>RPC Endpoint:</label>
+                    <input type="text" id="rpcUrl" value="https://studio.genlayer.com/api" readonly />
+                </div>
+                <div class="interact-row">
+                    <button class="interact-btn" onclick="readContractState()">📖 Read Contract State</button>
+                    <button class="interact-btn secondary" onclick="openExplorer()">🔍 Open Explorer</button>
+                </div>
+                <div class="interact-result" id="contractResult">
+                    <span class="prompt">$</span> Enter a contract address and click Read...
+                </div>
+            </div>
+        </div>
+
         <div class="cta-section">
             <a href="https://github.com/Dark-Brain07/genlayer--intelligent" class="cta-btn" target="_blank">
                 VIEW SOURCE CODE
@@ -410,7 +641,7 @@
     </div>
 
     <script>
-        // Starfield animation
+        // === STARFIELD ===
         const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -453,6 +684,177 @@
         resize();
         createStars(200);
         drawStars();
+
+        // === TERMINAL FUNCTIONS ===
+        const terminal = document.getElementById('terminalBody');
+
+        function log(msg, cls = '') {
+            const line = document.createElement('div');
+            line.className = 'term-line ' + cls;
+            line.innerHTML = '<span class="prompt">$</span> ' + msg;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function logResult(label, value, cls = 'term-success') {
+            const line = document.createElement('div');
+            line.className = 'term-line';
+            line.innerHTML = `<span class="prompt">></span> <span class="term-info">${label}:</span> <span class="${cls}">${value}</span>`;
+            terminal.appendChild(line);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        async function fetchBTC() {
+            log('gl.nondet.web.get("api.binance.com/btcusdt")...', 'term-info');
+            try {
+                const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+                const data = await res.json();
+                const price = '$' + parseInt(parseFloat(data.price)).toLocaleString();
+                logResult('BTC/USDT', price);
+            } catch (e) { log('ERROR: ' + e.message, 'term-error'); }
+        }
+
+        async function fetchETH() {
+            log('gl.nondet.web.get("api.binance.com/ethusdt")...', 'term-info');
+            try {
+                const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT');
+                const data = await res.json();
+                const price = '$' + parseInt(parseFloat(data.price)).toLocaleString();
+                logResult('ETH/USDT', price);
+            } catch (e) { log('ERROR: ' + e.message, 'term-error'); }
+        }
+
+        async function fetchSOL() {
+            log('gl.nondet.web.get("api.binance.com/solusdt")...', 'term-info');
+            try {
+                const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT');
+                const data = await res.json();
+                const price = '$' + parseInt(parseFloat(data.price)).toLocaleString();
+                logResult('SOL/USDT', price);
+            } catch (e) { log('ERROR: ' + e.message, 'term-error'); }
+        }
+
+        async function fetchBNB() {
+            log('gl.nondet.web.get("api.binance.com/bnbusdt")...', 'term-info');
+            try {
+                const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BNBUSDT');
+                const data = await res.json();
+                const price = '$' + parseInt(parseFloat(data.price)).toLocaleString();
+                logResult('BNB/USDT', price);
+            } catch (e) { log('ERROR: ' + e.message, 'term-error'); }
+        }
+
+        async function fetchWeather() {
+            log('gl.nondet.web.get("api.open-meteo.com/forecast")...', 'term-info');
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5&longitude=-0.12&current_weather=true');
+                const data = await res.json();
+                const temp = data.current_weather.temperature;
+                const wind = data.current_weather.windspeed;
+                let condition = 'NEUTRAL';
+                if (temp > 35) condition = '🔥 FIRE';
+                else if (temp < 5) condition = '❄️ ICE';
+                else condition = '⚔️ NEUTRAL';
+                logResult('London Temp', temp + '°C');
+                logResult('Wind Speed', wind + ' km/h');
+                logResult('Battle Mode', condition);
+            } catch (e) { log('ERROR: ' + e.message, 'term-error'); }
+        }
+
+        async function fetchISS() {
+            log('gl.nondet.web.get("api.open-notify.org/iss-now")...', 'term-info');
+            try {
+                const res = await fetch('http://api.open-notify.org/iss-now.json');
+                const data = await res.json();
+                logResult('ISS Latitude', data.iss_position.latitude);
+                logResult('ISS Longitude', data.iss_position.longitude);
+                logResult('Dungeon Seed', Math.abs(parseInt(parseFloat(data.iss_position.latitude) * 1000)));
+            } catch (e) { log('ERROR: ' + e.message, 'term-error'); }
+        }
+
+        async function fetchCountry() {
+            const countries = ['Japan', 'Germany', 'Brazil', 'India', 'Canada', 'Australia'];
+            const pick = countries[Math.floor(Math.random() * countries.length)];
+            log('gl.nondet.web.get("restcountries.com/' + pick + '")...', 'term-info');
+            try {
+                const res = await fetch('https://restcountries.com/v3.1/name/' + pick + '?fields=name,population,region,capital');
+                const data = await res.json();
+                const c = data[0];
+                logResult('Quest Location', c.name.common);
+                logResult('Population', parseInt(c.population).toLocaleString());
+                logResult('Region', c.region);
+            } catch (e) { log('ERROR: ' + e.message, 'term-error'); }
+        }
+
+        async function fetchAll() {
+            log('⚡ EXECUTING FULL ORACLE SYNC...', 'term-info');
+            log('─'.repeat(40), 'term-info');
+            await fetchBTC();
+            await fetchETH();
+            await fetchSOL();
+            await fetchBNB();
+            await fetchWeather();
+            await fetchISS();
+            await fetchCountry();
+            log('─'.repeat(40), 'term-info');
+            log('✅ ALL ORACLES SYNCED — gl.eq_principle.strict_eq CONSENSUS REACHED', 'term-success');
+        }
+
+        // === CONTRACT INTERACTION ===
+        async function readContractState() {
+            const addr = document.getElementById('contractAddr').value.trim();
+            const rpcUrl = document.getElementById('rpcUrl').value;
+            const resultDiv = document.getElementById('contractResult');
+
+            if (!addr) {
+                resultDiv.innerHTML = '<span class="term-error">ERROR: Please enter a contract address</span>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<span class="term-info">⏳ Fetching contract state from GenLayer StudioNet...</span>';
+
+            try {
+                const response = await fetch(rpcUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: 'gen_getContractState',
+                        params: [addr],
+                        id: 1
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    resultDiv.innerHTML = '<span class="term-error">RPC Error: ' + JSON.stringify(data.error) + '</span>';
+                } else if (data.result) {
+                    resultDiv.innerHTML =
+                        '<span class="prompt">$</span> <span class="term-info">Contract State:</span><br>' +
+                        '<pre style="color:#ffd700; margin-top:8px; white-space:pre-wrap;">' +
+                        JSON.stringify(data.result, null, 2) +
+                        '</pre>';
+                } else {
+                    resultDiv.innerHTML = '<span class="term-info">Response: ' + JSON.stringify(data) + '</span>';
+                }
+            } catch (e) {
+                resultDiv.innerHTML = '<span class="term-error">Network Error: ' + e.message + '</span>';
+            }
+        }
+
+        function openExplorer() {
+            const addr = document.getElementById('contractAddr').value.trim();
+            if (addr) {
+                window.open('https://explorer-studio.genlayer.com/address/' + addr, '_blank');
+            }
+        }
+
+        // Auto-fetch BTC on page load
+        setTimeout(() => {
+            log('🎮 CHAIN QUEST ORACLE SYSTEM ONLINE', 'term-success');
+            log('Click any button below to fetch LIVE data from real APIs...', 'term-info');
+        }, 500);
     </script>
 </body>
 </html>
