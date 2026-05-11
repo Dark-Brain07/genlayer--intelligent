@@ -21,6 +21,8 @@ class ISSTrackerOracle(gl.Contract):
     def fetch_planet_data(self, planet: str) -> str:
         if planet == "":
             planet = "mars"
+        
+        planet = planet.lower()
 
         url = "https://api.le-systeme-solaire.net/rest/bodies/" + planet
 
