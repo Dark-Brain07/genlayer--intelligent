@@ -27,8 +27,8 @@ _Deploy each contract in GenLayer Studio. Once deployed, provide the contract ad
 **Description:**
 An intelligent contract that fetches real sunrise and sunset times from the Open-Meteo API using `gl.nondet.web.get()`. The fetched timestamps are parsed from JSON and validated through `gl.eq_principle.strict_eq` to ensure all validators reach identical consensus on the day/night cycle data. Used in Chain Quest to drive time-based game events.
 
-- **Contract Address:** `[Deploy and provide address]`
-- **Explorer Link:** [Will be generated after deployment]
+- **Contract Address:** `0x004DAA7BEcC8Ebf7A0829420e0F807376C6D9C33`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x004DAA7BEcC8Ebf7A0829420e0F807376C6D9C33)
 - **Source Code:** [astronomy_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/astronomy_oracle.py)
 
 #### 2. BNB Price Oracle
