@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chain Quest | GenLayer AI RPG</title>
+    <meta name="description" content="Chain Quest - An on-chain RPG powered by GenLayer intelligent contracts that fetch real-world data to drive game mechanics.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --pixel-green: #00ff41;
+            --pixel-cyan: #00e5ff;
+            --pixel-gold: #ffd700;
+            --pixel-red: #ff073a;
+            --pixel-purple: #b026ff;
+            --bg-dark: #0d0d0d;
+            --bg-panel: #111118;
+            --border-dim: #1a1a2e;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #c0c0c0;
+            font-family: 'VT323', monospace;
+            overflow-x: hidden;
+            /* CRT scanline effect */
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(0,0,0,0.15) 1px,
+                    rgba(0,0,0,0.15) 2px
+                );
+        }
+
+        /* === STARFIELD CANVAS === */
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === HEADER === */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .logo-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: var(--pixel-gold);
+            text-shadow:
+                0 0 10px var(--pixel-gold),
+                0 0 30px rgba(255,215,0,0.4),
+                4px 4px 0 #1a0e00;
+            letter-spacing: 4px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--pixel-cyan);
+            margin-top: 20px;
+            letter-spacing: 3px;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 6px 16px;
+            border: 2px solid var(--pixel-green);
+            color: var(--pixel-green);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: var(--pixel-green); box-shadow: 0 0 5px rgba(0,255,65,0.3); }
+            50% { border-color: var(--pixel-cyan); box-shadow: 0 0 15px rgba(0,229,255,0.3); }
+        }
+
+        /* === STATS BAR === */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 30px 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.6rem;
+            color: var(--pixel-gold);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 6px;
+            letter-spacing: 2px;
+        }
+
+        /* === SECTION TITLE === */
+        .section-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(0.7rem, 2vw, 1rem);
+            color: var(--pixel-cyan);
+            text-align: center;
+            padding: 40px 20px 20px;
+            letter-spacing: 3px;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 3px;
+            background: var(--pixel-cyan);
+            margin: 10px auto 30px;
+            box-shadow: 0 0 8px var(--pixel-cyan);
+        }
+
+        /* === CONTRACT GRID === */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .card {
+            background: var(--bg-panel);
+            border: 2px solid var(--border-dim);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--pixel-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--pixel-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(0,229,255,0.15);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: var(--pixel-green);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        .card .api-tag {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 3px 10px;
+            border: 1px solid #333;
+            color: var(--pixel-gold);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* === CTA SECTION === */
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px 100px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--pixel-gold);
+            border: 3px solid var(--pixel-gold);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            background: var(--pixel-gold);
+            color: #000;
+            box-shadow: 0 0 30px rgba(255,215,0,0.4);
+        }
+
+        .cta-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* === FOOTER === */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+            color: #333;
+            border-top: 1px solid #1a1a1a;
+            letter-spacing: 2px;
+        }
+
+        /* === TYPEWRITER === */
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--pixel-green);
+            animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+            max-width: fit-content;
+            margin: 20px auto 0;
+            font-size: 1.2rem;
+            color: var(--pixel-green);
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--pixel-green); }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+
+    <div class="page-content">
+        <header>
+            <h1 class="logo-text">CHAIN QUEST</h1>
+            <p class="subtitle">AN ON-CHAIN RPG POWERED BY REAL-WORLD DATA</p>
+            <span class="badge">BUILT ON GENLAYER GENVM</span>
+            <div class="typewriter">$ Initializing 15 Intelligent Contracts...</div>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">15</div>
+                <div class="stat-label">CONTRACTS</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">7+</div>
+                <div class="stat-label">LIVE APIS</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label">LLM RECALLS</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">WEB FETCHED</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">INTELLIGENT CONTRACTS</h2>
+        <div class="section-line"></div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🌡️</div>
+                <h3>WEATHER BATTLE</h3>
+                <p>Fetches real temperature from Open-Meteo to set Fire/Ice/Neutral battle conditions.</p>
+                <span class="api-tag">api.open-meteo.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">₿</div>
+                <h3>CRYPTO PRICE</h3>
+                <p>Fetches live BTC/USDT from Binance to set in-game gold exchange rates.</p>
+                <span class="api-tag">api.binance.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">⟠</div>
+                <h3>ETH GAS ORACLE</h3>
+                <p>Fetches live ETH price from Binance to calculate crafting costs dynamically.</p>
+                <span class="api-tag">api.binance.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">◎</div>
+                <h3>SOL PRICE</h3>
+                <p>Fetches live SOL/USDT price from Binance to set potion and spell costs.</p>
+                <span class="api-tag">api.binance.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🪙</div>
+                <h3>BNB PRICE</h3>
+                <p>Fetches live BNB/USDT from Binance to determine guild treasury value.</p>
+                <span class="api-tag">api.binance.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">💲</div>
+                <h3>XRP PRICE</h3>
+                <p>Fetches live XRP/USDT from Binance to calculate cross-realm travel costs.</p>
+                <span class="api-tag">api.binance.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌍</div>
+                <h3>COUNTRY INFO</h3>
+                <p>Fetches real country data from RestCountries to generate quest locations.</p>
+                <span class="api-tag">restcountries.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">⭐</div>
+                <h3>GITHUB REPO</h3>
+                <p>Fetches real GitHub stars and forks to generate developer-themed quests.</p>
+                <span class="api-tag">api.github.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛰️</div>
+                <h3>ISS TRACKER</h3>
+                <p>Fetches real ISS position from Open Notify for space dungeon coordinates.</p>
+                <span class="api-tag">api.open-notify.org</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🐕</div>
+                <h3>DOG FACT</h3>
+                <p>Fetches real dog facts from DogAPI to generate companion pet dialogue.</p>
+                <span class="api-tag">dogapi.dog</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔢</div>
+                <h3>NUMBER TRIVIA</h3>
+                <p>Fetches real number trivia from NumbersAPI to generate dungeon riddles.</p>
+                <span class="api-tag">numbersapi.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎓</div>
+                <h3>UNIVERSITY</h3>
+                <p>Fetches real university data from Hipolabs to generate scholar NPCs.</p>
+                <span class="api-tag">universities.hipolabs.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌅</div>
+                <h3>ASTRONOMY</h3>
+                <p>Fetches real sunrise/sunset times from Open-Meteo for day/night cycles.</p>
+                <span class="api-tag">api.open-meteo.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">💨</div>
+                <h3>WIND SPEED</h3>
+                <p>Fetches real wind data from Open-Meteo for sailing and flight mechanics.</p>
+                <span class="api-tag">api.open-meteo.com</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎮</div>
+                <h3>PLAYER REGISTRY</h3>
+                <p>On-chain player profiles with names, levels, and XP tracking.</p>
+                <span class="api-tag">ON-CHAIN LOGIC</span>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <a href="https://github.com/Dark-Brain07/genlayer--intelligent" class="cta-btn" target="_blank">
+                VIEW SOURCE CODE
+            </a>
+        </div>
+
+        <footer>
+            CHAIN QUEST &copy; 2026 | POWERED BY GENLAYER GENVM | ALL DATA FETCHED VIA gl.nondet.web.get
+        </footer>
+    </div>
+
+    <script>
+        // Starfield animation
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createStars(count) {
+            stars = [];
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5,
+                    speed: Math.random() * 0.5 + 0.1,
+                    opacity: Math.random()
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+                ctx.fillRect(star.x, star.y, star.size, star.size);
+                star.y += star.speed;
+                star.opacity += (Math.random() - 0.5) * 0.02;
+                star.opacity = Math.max(0.1, Math.min(1, star.opacity));
+                if (star.y > canvas.height) {
+                    star.y = 0;
+                    star.x = Math.random() * canvas.width;
+                }
+            });
+            requestAnimationFrame(drawStars);
+        }
+
+        window.addEventListener('resize', () => { resize(); createStars(200); });
+        resize();
+        createStars(200);
+        drawStars();
+    </script>
+</body>
+</html>
