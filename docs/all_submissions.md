@@ -93,12 +93,12 @@ An intelligent contract that fetches real GitHub repository statistics (stars an
 
 #### 8. ISS Tracker Oracle
 
-**Title:** International Space Station Position Tracker Oracle
+**Title:** NASA Space Data Oracle for Cosmic Events
 **Description:**
-An intelligent contract that fetches the real-time position (latitude/longitude) of the International Space Station from the Open Notify API using `gl.nondet.web.get()`. Coordinates are parsed from JSON and validated via `gl.eq_principle.strict_eq`. Used in Chain Quest to generate space-themed dungeon coordinates.
+An intelligent contract that fetches real-time astronomy data (Title and Date) from NASA's official APOD API using `gl.nondet.web.get()`. The data is parsed from JSON and validated through `gl.eq_principle.strict_eq` to ensure high-reliability consensus. Used in Chain Quest to drive cosmic in-game events and space-themed dungeon lore.
 
-- **Contract Address:** `0xd432f74fe6F9BEA47f019191556e66a4fAA78CBA`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xd432f74fe6F9BEA47f019191556e66a4fAA78CBA)
+- **Contract Address:** `0x07E7b9778836c60bc6460D7216F5572021193C59`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x07E7b9778836c60bc6460D7216F5572021193C59)
 - **Source Code:** [iss_tracker_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/iss_tracker_oracle.py)
 
 #### 9. Number Fact Oracle
