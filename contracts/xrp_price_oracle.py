@@ -20,7 +20,7 @@ class XrpPriceOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response)
+            data = response.json()
             # Round to 2 decimal places for consensus stability
             price_str = str(round(float(data["price"]), 2))
             return price_str

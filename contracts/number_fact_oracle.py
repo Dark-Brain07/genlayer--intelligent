@@ -20,8 +20,9 @@ class NumberFactOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response)
-            return data["text"]
+            data = response.json()
+            trivia = data["text"]
+            return trivia
 
         result = gl.eq_principle.strict_eq(_fetch)
         self.last_trivia = result

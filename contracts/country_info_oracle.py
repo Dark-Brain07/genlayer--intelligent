@@ -22,7 +22,7 @@ class CountryInfoOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response)
+            data = response.json()
             country = data[0]
             name = country["name"]["common"]
             pop = str(country["population"])

@@ -20,7 +20,7 @@ class EthGasOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response)
+            data = response.json()
             price_int = str(int(float(data["price"])))
             return price_int
 

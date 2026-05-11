@@ -22,7 +22,7 @@ class UniversityOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response)
+            data = response.json()
             if len(data) > 0:
                 name = data[0]["name"]
                 ctry = data[0]["country"]

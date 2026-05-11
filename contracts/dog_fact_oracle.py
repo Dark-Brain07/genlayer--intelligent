@@ -20,7 +20,7 @@ class DogFactOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response)
+            data = response.json()
             fact = data["data"][0]["attributes"]["body"]
             return fact
 

@@ -22,7 +22,7 @@ class ISSTrackerOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response)
+            data = response.json()
             lat = data["iss_position"]["latitude"]
             lon = data["iss_position"]["longitude"]
             return lat + "|" + lon
