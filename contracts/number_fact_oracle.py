@@ -5,51 +5,36 @@ import json
 
 class NumberFactOracle(gl.Contract):
     """
-    Chain Quest: Number & Lore Oracle
-    Fetches REAL trivia and definitions from the DuckDuckGo API
-    to generate riddle puzzles for dungeon gates.
-    Uses a highly stable HTTPS API for reliable consensus.
+    Chain Quest: Time & Lore Oracle
+    Fetches REAL world time and timezone data from WorldTimeAPI
+    to generate time-locked dungeon gates and events.
+    Uses the simplest possible API for maximum consensus reliability.
     """
-    last_trivia: str
+    last_time_info: str
 
     def __init__(self):
-        self.last_trivia = ""
+        self.last_time_info = ""
 
     @gl.public.write
-    def fetch_number_trivia(self, query: str) -> str:
-        if query == "":
-            query = "42"
+    def fetch_world_time(self, timezone: str) -> str:
+        if timezone == "":
+            timezone = "Etc/UTC"
 
-        # DuckDuckGo Instant Answer API (stable and returns JSON)
-        url = "https://api.duckduckgo.com/?q=" + query + "&format=json"
+        # WorldTimeAPI (Very simple and reliable)
+        url = "http://worldtimeapi.org/api/timezone/" + timezone
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
             data = json.loads(response.body.decode("utf-8"))
             
-            # 1. Try AbstractText
-            text = data.get("AbstractText", "")
-            
-            # 2. Try first RelatedTopic if Abstract is empty
-            if text == "":
-                topics = data.get("RelatedTopics", [])
-                if topics and isinstance(topics[0], dict) and "Text" in topics[0]:
-                    text = topics[0]["Text"]
-            
-            # 3. Try Heading as last resort
-            if text == "":
-                text = data.get("Heading", "")
-
-            # 4. Final fallback
-            if text == "":
-                text = "Discovering the secrets of " + query
-
-            return text
+            datetime = data.get("datetime", "")
+            unixtime = str(data.get("unixtime", 0))
+            return datetime + "|" + unixtime
 
         result = gl.eq_principle.strict_eq(_fetch)
-        self.last_trivia = result
-        return "Riddle Clue: " + result
+        self.last_time_info = result
+        return "Time Synchronized: " + result
 
     @gl.public.view
-    def get_last_trivia(self) -> str:
-        return self.last_trivia
+    def get_last_time(self) -> str:
+        return self.last_time_info
