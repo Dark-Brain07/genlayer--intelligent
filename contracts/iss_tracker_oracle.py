@@ -5,41 +5,46 @@ import json
 
 class ISSTrackerOracle(gl.Contract):
     """
-    Chain Quest: Space Data Oracle (Powered by NASA)
-    Fetches REAL daily astronomy data from NASA's APOD API
-    to generate space-themed dungeon lore and events.
-    Uses NASA's official stable API for reliable consensus.
+    Chain Quest: Ocean Explorer Oracle
+    Fetches REAL ocean & marine weather data from Open-Meteo Marine API
+    to generate sea-themed dungeon environments and wave mechanics.
+    Uses the proven Open-Meteo HTTPS infrastructure for reliable consensus.
     """
-    last_title: str
-    last_date: str
+    last_wave_height: str
+    last_wave_direction: str
 
     def __init__(self):
-        self.last_title = ""
-        self.last_date = ""
+        self.last_wave_height = "0"
+        self.last_wave_direction = "0"
 
     @gl.public.write
-    def fetch_nasa_data(self) -> str:
-        # NASA's official public demo API key
-        url = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY"
+    def fetch_ocean_data(self, lat: str, lon: str) -> str:
+        if lat == "":
+            lat = "54.33"
+        if lon == "":
+            lon = "10.13"
+
+        url = "https://marine-api.open-meteo.com/v1/marine?latitude=" + lat + "&longitude=" + lon + "&current=wave_height,wave_direction,wave_period"
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
             data = json.loads(response.body.decode("utf-8"))
-            # Extract stable fields: Title and Date
-            title = data["title"]
-            date = data["date"]
-            return title + "|" + date
+            current = data["current"]
+            wave_height = str(current["wave_height"])
+            wave_direction = str(current["wave_direction"])
+            wave_period = str(current["wave_period"])
+            return wave_height + "|" + wave_direction + "|" + wave_period
 
         result = gl.eq_principle.strict_eq(_fetch)
         parts = result.split("|")
-        self.last_title = parts[0]
-        self.last_date = parts[1]
-        return "NASA Update: " + parts[0] + " (" + parts[1] + ")"
+        self.last_wave_height = parts[0]
+        self.last_wave_direction = parts[1]
+        return "Ocean Data: Wave " + parts[0] + "m | Direction: " + parts[1] + "° | Period: " + parts[2] + "s"
 
     @gl.public.view
-    def get_space_title(self) -> str:
-        return self.last_title
+    def get_wave_height(self) -> str:
+        return self.last_wave_height
 
     @gl.public.view
-    def get_space_date(self) -> str:
-        return self.last_date
+    def get_wave_direction(self) -> str:
+        return self.last_wave_direction
