@@ -812,37 +812,44 @@
                 return;
             }
 
-            resultDiv.innerHTML = '<span class="term-info">⏳ Fetching contract state from GenLayer StudioNet...</span>';
+            resultDiv.innerHTML = '<span class="term-info">⏳ Querying GenLayer StudioNet...</span>';
 
-            try {
-                const response = await fetch(rpcUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        jsonrpc: '2.0',
-                        method: 'gen_get_contract_state',
-                        params: [addr],
-                        id: 1
-                    })
-                });
+            // We will try the most common GenVM RPC methods
+            const methods = ['gen_get_contract_state', 'get_contract_state'];
+            let success = false;
 
-                const data = await response.json();
+            for (const method of methods) {
+                if (success) break;
+                try {
+                    const response = await fetch(rpcUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            jsonrpc: '2.0',
+                            method: method,
+                            params: [addr],
+                            id: 1
+                        })
+                    });
 
-                if (data.error) {
-                    resultDiv.innerHTML = '<span class="term-error">RPC Error: ' + (data.error.message || JSON.stringify(data.error)) + '</span>';
-                } else if (data.result) {
-                    // Extract important fields for better display
-                    const state = data.result;
-                    resultDiv.innerHTML = `
-                        <div class="term-line"><span class="prompt">$</span> <span class="term-success">SUCCESS: Data Received</span></div>
-                        <div class="term-line"><span class="term-info">Block:</span> ${state.block_number || 'Latest'}</div>
-                        <pre style="color:#ffd700; margin-top:8px; white-space:pre-wrap; font-size: 0.9rem;">${JSON.stringify(state, null, 2)}</pre>
-                    `;
-                } else {
-                    resultDiv.innerHTML = '<span class="term-info">Response: ' + JSON.stringify(data) + '</span>';
+                    const data = await response.json();
+
+                    if (data.result) {
+                        success = true;
+                        const state = data.result;
+                        resultDiv.innerHTML = `
+                            <div class="term-line"><span class="prompt">$</span> <span class="term-success">SUCCESS [${method}]</span></div>
+                            <pre style="color:#ffd700; margin-top:8px; white-space:pre-wrap; font-size: 0.85rem;">${JSON.stringify(state, null, 2)}</pre>
+                        `;
+                    } else if (method === methods[methods.length - 1]) {
+                        // If it's the last method and still no result
+                        resultDiv.innerHTML = '<span class="term-error">RPC Error: ' + (data.error ? data.error.message : 'No result found') + '</span>';
+                    }
+                } catch (e) {
+                    if (method === methods[methods.length - 1]) {
+                        resultDiv.innerHTML = '<span class="term-error">Network Error: ' + e.message + '</span>';
+                    }
                 }
-            } catch (e) {
-                resultDiv.innerHTML = '<span class="term-error">Network Error: ' + e.message + '</span>';
             }
         }
 
