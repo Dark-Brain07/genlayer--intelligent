@@ -93,9 +93,9 @@ An intelligent contract that fetches real GitHub repository statistics (stars an
 
 #### 8. ISS Tracker Oracle
 
-**Title:** NASA Space Data Oracle for Cosmic Events
+**Title:** Ocean Explorer Oracle for Sea-Themed Environments
 **Description:**
-An intelligent contract that fetches real-time astronomy data (Title and Date) from NASA's official APOD API using `gl.nondet.web.get()`. The data is parsed from JSON and validated through `gl.eq_principle.strict_eq` to ensure high-reliability consensus. Used in Chain Quest to drive cosmic in-game events and space-themed dungeon lore.
+An intelligent contract that fetches real ocean and marine weather data (wave height, wave direction, wave period) from the Open-Meteo Marine API using `gl.nondet.web.get()`. The data is parsed from JSON and validated through `gl.eq_principle.strict_eq` for reliable consensus. Used in Chain Quest to generate sea-themed dungeon environments and wave-based combat mechanics.
 
 - **Contract Address:** `0x07E7b9778836c60bc6460D7216F5572021193C59`
 - **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x07E7b9778836c60bc6460D7216F5572021193C59)
@@ -103,9 +103,9 @@ An intelligent contract that fetches real-time astronomy data (Title and Date) f
 
 #### 9. Number Fact Oracle
 
-**Title:** Number Trivia Oracle for Dungeon Riddle Generation
+**Title:** City Lore Oracle for Dungeon Location Generation
 **Description:**
-An intelligent contract that fetches real number trivia from the NumbersAPI using `gl.nondet.web.get()`. The trivia text is parsed from JSON and validated through `gl.eq_principle.strict_eq`. Used in Chain Quest to generate riddle puzzles that guard dungeon gates.
+An intelligent contract that fetches real geographic data (name, country, elevation, coordinates) about any city worldwide from the Open-Meteo Geocoding API using `gl.nondet.web.get()`. The data is parsed from JSON and validated through `gl.eq_principle.strict_eq`. Used in Chain Quest to dynamically generate dungeon locations with real-world elevation-based difficulty scaling.
 
 - **Contract Address:** `0x5328088D1C5eB19eC1a8cc2AcaB525a0f71ADb48`
 - **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x5328088D1C5eB19eC1a8cc2AcaB525a0f71ADb48)
