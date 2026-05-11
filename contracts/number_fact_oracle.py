@@ -5,9 +5,10 @@ import json
 
 class NumberFactOracle(gl.Contract):
     """
-    Chain Quest: Number Trivia Oracle
-    Fetches REAL number trivia from NumbersAPI
+    Chain Quest: Number & Lore Oracle
+    Fetches REAL trivia and definitions from the DuckDuckGo API
     to generate riddle puzzles for dungeon gates.
+    Uses a highly stable HTTPS API for reliable consensus.
     """
     last_trivia: str
 
@@ -15,18 +16,32 @@ class NumberFactOracle(gl.Contract):
         self.last_trivia = ""
 
     @gl.public.write
-    def fetch_number_trivia(self, number: str) -> str:
-        url = "http://numbersapi.com/" + number + "/trivia?json"
+    def fetch_number_trivia(self, query: str) -> str:
+        if query == "":
+            query = "42"
+
+        # DuckDuckGo Instant Answer API (stable and returns JSON)
+        url = "https://api.duckduckgo.com/?q=" + query + "&format=json"
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
             data = json.loads(response.body.decode("utf-8"))
-            trivia = data["text"]
-            return trivia
+            
+            # Extract the Abstract text or a related topic
+            text = data.get("AbstractText", "")
+            if text == "":
+                # Fallback to first related topic if abstract is empty
+                topics = data.get("RelatedTopics", [])
+                if topics and "Text" in topics[0]:
+                    text = topics[0]["Text"]
+                else:
+                    text = "No specific lore found for " + query
+
+            return text
 
         result = gl.eq_principle.strict_eq(_fetch)
         self.last_trivia = result
-        return "Riddle: " + result
+        return "Riddle Clue: " + result
 
     @gl.public.view
     def get_last_trivia(self) -> str:
