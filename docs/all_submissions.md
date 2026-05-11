@@ -27,8 +27,8 @@ _Deploy each contract in GenLayer Studio. Once deployed, provide the contract ad
 **Description:**
 An intelligent contract that fetches real sunrise and sunset times from the Open-Meteo API using `gl.nondet.web.get()`. The fetched timestamps are parsed from JSON and validated through `gl.eq_principle.strict_eq` to ensure all validators reach identical consensus on the day/night cycle data. Used in Chain Quest to drive time-based game events.
 
-- **Contract Address:** `0x004DAA7BEcC8Ebf7A0829420e0F807376C6D9C33`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x004DAA7BEcC8Ebf7A0829420e0F807376C6D9C33)
+- **Contract Address:** `0xb2bE1E5B4f56636597fFD6418a7f118C3e122afa`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xb2bE1E5B4f56636597fFD6418a7f118C3e122afa)
 - **Source Code:** [astronomy_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/astronomy_oracle.py)
 
 #### 2. BNB Price Oracle
@@ -37,8 +37,8 @@ An intelligent contract that fetches real sunrise and sunset times from the Open
 **Description:**
 An intelligent contract that fetches the real-time BNB/USDT price from the Binance public API using `gl.nondet.web.get()`. The price is parsed from JSON, rounded to an integer for deterministic consensus, and validated through `gl.eq_principle.strict_eq`. Used in Chain Quest to determine guild treasury value.
 
-- **Contract Address:** `0x6a0e4e049E03db0C07Cd049CC36Dd4737E3434a5`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x6a0e4e049E03db0C07Cd049CC36Dd4737E3434a5)
+- **Contract Address:** `0x81956718bF9C3f903C5e4b47263Cb9a77A88aa6F`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x81956718bF9C3f903C5e4b47263Cb9a77A88aa6F)
 - **Source Code:** [bnb_price_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/bnb_price_oracle.py)
 
 #### 3. Country Info Oracle
@@ -47,8 +47,8 @@ An intelligent contract that fetches the real-time BNB/USDT price from the Binan
 **Description:**
 An intelligent contract that fetches real country information (name, population, region) from the RestCountries API using `gl.nondet.web.get()`. The data is parsed from JSON and pipe-delimited for clean consensus via `gl.eq_principle.strict_eq`. Used in Chain Quest to dynamically generate quest locations based on real geography.
 
-- **Contract Address:** `0x2a6A5Ae66F5530028C714C1Ef3A2FdcEf4C9b0Ca`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x2a6A5Ae66F5530028C714C1Ef3A2FdcEf4C9b0Ca)
+- **Contract Address:** `0x140FfA157E140F3667D9971c3c9Cb9366E6382D5`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x140FfA157E140F3667D9971c3c9Cb9366E6382D5)
 - **Source Code:** [country_info_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/country_info_oracle.py)
 
 #### 4. Crypto Price Oracle
@@ -57,8 +57,8 @@ An intelligent contract that fetches real country information (name, population,
 **Description:**
 An intelligent contract that fetches the real-time Bitcoin price from the Binance public API using `gl.nondet.web.get()`. The price string is parsed from JSON, converted to an integer for byte-identical consensus, and wrapped in `gl.eq_principle.strict_eq`. Used in Chain Quest to set the in-game gold exchange rate.
 
-- **Contract Address:** `0xD40098A712cbFd701A6634DA54e2445cd9637051`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xD40098A712cbFd701A6634DA54e2445cd9637051)
+- **Contract Address:** `0x4440F2034cA0D80e846858500CcF148A7375626b`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x4440F2034cA0D80e846858500CcF148A7375626b)
 - **Source Code:** [crypto_price_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/crypto_price_oracle.py)
 
 #### 5. Dog Fact Oracle
@@ -67,8 +67,8 @@ An intelligent contract that fetches the real-time Bitcoin price from the Binanc
 **Description:**
 An intelligent contract that fetches real random dog facts from the DogAPI using `gl.nondet.web.get()`. The fact text is parsed from the nested JSON response and validated through `gl.eq_principle.strict_eq`. Used in Chain Quest to generate authentic companion pet dialogue and in-game lore text.
 
-- **Contract Address:** `0xF61D5d595893F4e3369B0dCC15125555eF6c8489`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xF61D5d595893F4e3369B0dCC15125555eF6c8489)
+- **Contract Address:** `0xD4f60fCdC48cf56258A2b27b5C57FdD02E743feA`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xD4f60fCdC48cf56258A2b27b5C57FdD02E743feA)
 - **Source Code:** [dog_fact_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/dog_fact_oracle.py)
 
 #### 6. ETH Gas Oracle
@@ -77,8 +77,8 @@ An intelligent contract that fetches real random dog facts from the DogAPI using
 **Description:**
 An intelligent contract that fetches the real-time Ethereum price from the Binance public API using `gl.nondet.web.get()`. The price is parsed from JSON, truncated to an integer, and validated via `gl.eq_principle.strict_eq` for deterministic consensus. Used in Chain Quest to dynamically calculate in-game crafting costs.
 
-- **Contract Address:** `0xA07D2648171c93754Ce1Cf5cf9F6eAA5e52448e0`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xA07D2648171c93754Ce1Cf5cf9F6eAA5e52448e0)
+- **Contract Address:** `0x66E8746c6BC93eCE7fE95A8a580c1c50764B36B6`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x66E8746c6BC93eCE7fE95A8a580c1c50764B36B6)
 - **Source Code:** [eth_gas_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/eth_gas_oracle.py)
 
 #### 7. GitHub Repo Oracle
@@ -87,8 +87,8 @@ An intelligent contract that fetches the real-time Ethereum price from the Binan
 **Description:**
 An intelligent contract that fetches real GitHub repository statistics (stars and forks) from the GitHub API using `gl.nondet.web.get()`. The parsed star and fork counts are pipe-delimited and validated through `gl.eq_principle.strict_eq`. Used in Chain Quest to generate developer-themed quests where stars equal XP and forks equal allies.
 
-- **Contract Address:** `0xFDa8103792751eC370A9bfca881Bb97281cF5D84`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xFDa8103792751eC370A9bfca881Bb97281cF5D84)
+- **Contract Address:** `0xBC1e94c0E71E45f76207a73ba747e5ac79EFa9c1`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xBC1e94c0E71E45f76207a73ba747e5ac79EFa9c1)
 - **Source Code:** [github_repo_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/github_repo_oracle.py)
 
 #### 8. ISS Tracker Oracle
