@@ -22,7 +22,7 @@ class WindSpeedOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = response.json()
+            data = json.loads(response.text)
             wind_speed = str(data["current_weather"]["windspeed"])
             wind_direction = str(data["current_weather"]["winddirection"])
             return wind_speed + "|" + wind_direction

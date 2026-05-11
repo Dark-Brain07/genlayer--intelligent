@@ -22,7 +22,7 @@ class WeatherBattleOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = response.json()
+            data = json.loads(response.text)
             temp = str(data["current_weather"]["temperature"])
             return temp
 

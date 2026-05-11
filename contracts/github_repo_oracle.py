@@ -22,7 +22,7 @@ class GithubRepoOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = response.json()
+            data = json.loads(response.text)
             stars = str(data["stargazers_count"])
             forks = str(data["forks_count"])
             return stars + "|" + forks
