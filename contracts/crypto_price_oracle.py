@@ -20,7 +20,7 @@ class CryptoPriceOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response.text)
+            data = json.loads(response.body.decode("utf-8"))
             # Trim to integer for strict consensus
             price_int = str(int(float(data["price"])))
             return price_int
