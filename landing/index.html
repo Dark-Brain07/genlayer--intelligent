@@ -477,6 +477,62 @@
             </div>
         </div>
 
+        <!-- === LIVE DATA TERMINAL === -->
+        <h2 class="section-title">LIVE DATA TERMINAL</h2>
+        <div class="section-line"></div>
+
+        <div class="terminal-wrapper">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">chain-quest-oracle-feed</span>
+                </div>
+                <div class="terminal-body" id="terminalBody">
+                    <div class="term-line"><span class="prompt">$</span> Waiting for commands...</div>
+                </div>
+                <div class="terminal-controls">
+                    <button class="term-btn" onclick="fetchBTC()">₿ BTC Price</button>
+                    <button class="term-btn" onclick="fetchETH()">⟠ ETH Price</button>
+                    <button class="term-btn" onclick="fetchSOL()">◎ SOL Price</button>
+                    <button class="term-btn" onclick="fetchBNB()">🪙 BNB Price</button>
+                    <button class="term-btn" onclick="fetchWeather()">🌡️ Weather</button>
+                    <button class="term-btn" onclick="fetchISS()">🛰️ ISS Position</button>
+                    <button class="term-btn" onclick="fetchCountry()">🌍 Country</button>
+                    <button class="term-btn" onclick="fetchAll()">⚡ FETCH ALL</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- === CONTRACT INTERACTION === -->
+        <h2 class="section-title">CONTRACT INTERACTION</h2>
+        <div class="section-line"></div>
+
+        <div class="interact-wrapper">
+            <div class="interact-panel">
+                <div class="interact-header">
+                    <span class="interact-icon">🔗</span>
+                    <span>GenLayer StudioNet RPC</span>
+                </div>
+                <div class="interact-row">
+                    <label>Contract Address:</label>
+                    <input type="text" id="contractAddr" value="0x004DAA7BEcC8Ebf7A0829420e0F807376C6D9C33" placeholder="0x..." />
+                </div>
+                <div class="interact-row">
+                    <label>RPC Endpoint:</label>
+                    <input type="text" id="rpcUrl" value="https://studio.genlayer.com/api" readonly />
+                </div>
+                <div class="interact-row">
+                    <button class="interact-btn" onclick="readContractState()">📖 Read Contract State</button>
+                    <button class="interact-btn secondary" onclick="openExplorer()">🔍 Open Explorer</button>
+                </div>
+                <div class="interact-result" id="contractResult">
+                    <span class="prompt">$</span> Enter a contract address and click Read...
+                </div>
+            </div>
+        </div>
+
         <h2 class="section-title">INTELLIGENT CONTRACTS</h2>
         <div class="section-line"></div>
 
@@ -570,62 +626,6 @@
                 <h3>PLAYER REGISTRY</h3>
                 <p>On-chain player profiles with names, levels, and XP tracking.</p>
                 <span class="api-tag">ON-CHAIN LOGIC</span>
-            </div>
-        </div>
-
-        <!-- === LIVE DATA TERMINAL === -->
-        <h2 class="section-title">LIVE DATA TERMINAL</h2>
-        <div class="section-line"></div>
-
-        <div class="terminal-wrapper">
-            <div class="terminal">
-                <div class="terminal-header">
-                    <span class="terminal-dot red"></span>
-                    <span class="terminal-dot yellow"></span>
-                    <span class="terminal-dot green"></span>
-                    <span class="terminal-title">chain-quest-oracle-feed</span>
-                </div>
-                <div class="terminal-body" id="terminalBody">
-                    <div class="term-line"><span class="prompt">$</span> Waiting for commands...</div>
-                </div>
-                <div class="terminal-controls">
-                    <button class="term-btn" onclick="fetchBTC()">₿ BTC Price</button>
-                    <button class="term-btn" onclick="fetchETH()">⟠ ETH Price</button>
-                    <button class="term-btn" onclick="fetchSOL()">◎ SOL Price</button>
-                    <button class="term-btn" onclick="fetchBNB()">🪙 BNB Price</button>
-                    <button class="term-btn" onclick="fetchWeather()">🌡️ Weather</button>
-                    <button class="term-btn" onclick="fetchISS()">🛰️ ISS Position</button>
-                    <button class="term-btn" onclick="fetchCountry()">🌍 Country</button>
-                    <button class="term-btn" onclick="fetchAll()">⚡ FETCH ALL</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- === CONTRACT INTERACTION === -->
-        <h2 class="section-title">CONTRACT INTERACTION</h2>
-        <div class="section-line"></div>
-
-        <div class="interact-wrapper">
-            <div class="interact-panel">
-                <div class="interact-header">
-                    <span class="interact-icon">🔗</span>
-                    <span>GenLayer StudioNet RPC</span>
-                </div>
-                <div class="interact-row">
-                    <label>Contract Address:</label>
-                    <input type="text" id="contractAddr" value="0x004DAA7BEcC8Ebf7A0829420e0F807376C6D9C33" placeholder="0x..." />
-                </div>
-                <div class="interact-row">
-                    <label>RPC Endpoint:</label>
-                    <input type="text" id="rpcUrl" value="https://studio.genlayer.com/api" readonly />
-                </div>
-                <div class="interact-row">
-                    <button class="interact-btn" onclick="readContractState()">📖 Read Contract State</button>
-                    <button class="interact-btn secondary" onclick="openExplorer()">🔍 Open Explorer</button>
-                </div>
-                <div class="interact-result" id="contractResult">
-                    <span class="prompt">$</span> Enter a contract address and click Read...
-                </div>
             </div>
         </div>
 
