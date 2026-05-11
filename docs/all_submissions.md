@@ -13,7 +13,7 @@ Use these templates to submit your project to the **GenLayer Points Portal**. Su
 Built an on-chain RPG game consisting of 15 intelligent contracts on GenLayer where every game mechanic is driven by real-world data fetched via `gl.nondet.web.get()` from live public APIs (Binance, Open-Meteo, GitHub, RestCountries, ISS Tracker, and more). Every oracle uses `gl.eq_principle.strict_eq` for deterministic validator consensus on parsed values. Includes a pixel-art retro landing page with starfield animation.
 
 - **GitHub Repository:** [https://github.com/Dark-Brain07/genlayer--intelligent](https://github.com/Dark-Brain07/genlayer--intelligent)
-- **Landing Page:** [View Landing Page](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/landing/index.html)
+- **Landing Page:** [https://landing-dusky-three-98.vercel.app](https://landing-dusky-three-98.vercel.app)
 
 ---
 
