@@ -18,16 +18,21 @@ class CountryInfoOracle(gl.Contract):
 
     @gl.public.write
     def fetch_country_data(self, country_name: str) -> str:
+        if country_name == "":
+            return "ERROR: Please provide a country name"
+
         url = "https://restcountries.com/v3.1/name/" + country_name + "?fields=name,population,region,capital"
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
             data = json.loads(response.body.decode("utf-8"))
-            country = data[0]
-            name = country["name"]["common"]
-            pop = str(country["population"])
-            region = country["region"]
-            return name + "|" + pop + "|" + region
+            if isinstance(data, list) and len(data) > 0:
+                country = data[0]
+                name = country["name"]["common"]
+                pop = str(country["population"])
+                region = country["region"]
+                return name + "|" + pop + "|" + region
+            return "Unknown|0|Unknown"
 
         result = gl.eq_principle.strict_eq(_fetch)
         parts = result.split("|")
