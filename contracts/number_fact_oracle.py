@@ -27,15 +27,22 @@ class NumberFactOracle(gl.Contract):
             response = gl.nondet.web.get(url)
             data = json.loads(response.body.decode("utf-8"))
             
-            # Extract the Abstract text or a related topic
+            # 1. Try AbstractText
             text = data.get("AbstractText", "")
+            
+            # 2. Try first RelatedTopic if Abstract is empty
             if text == "":
-                # Fallback to first related topic if abstract is empty
                 topics = data.get("RelatedTopics", [])
-                if topics and "Text" in topics[0]:
+                if topics and isinstance(topics[0], dict) and "Text" in topics[0]:
                     text = topics[0]["Text"]
-                else:
-                    text = "No specific lore found for " + query
+            
+            # 3. Try Heading as last resort
+            if text == "":
+                text = data.get("Heading", "")
+
+            # 4. Final fallback
+            if text == "":
+                text = "Discovering the secrets of " + query
 
             return text
 
