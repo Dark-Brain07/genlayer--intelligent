@@ -20,10 +20,9 @@ class CryptoPriceOracle(gl.Contract):
 
         def _fetch() -> str:
             response = gl.nondet.web.get(url)
-            data = json.loads(response)
-            price = data["price"]
+            data = response.json()
             # Trim to integer for strict consensus
-            price_int = str(int(float(price)))
+            price_int = str(int(float(data["price"])))
             return price_int
 
         btc_price = gl.eq_principle.strict_eq(_fetch)
