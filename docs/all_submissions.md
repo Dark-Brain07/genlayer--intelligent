@@ -107,8 +107,8 @@ An intelligent contract that fetches real ocean and marine weather data (wave he
 **Description:**
 An intelligent contract that fetches real geographic data (name, country, elevation, coordinates) about any city worldwide from the Open-Meteo Geocoding API using `gl.nondet.web.get()`. The data is parsed from JSON and validated through `gl.eq_principle.strict_eq`. Used in Chain Quest to dynamically generate dungeon locations with real-world elevation-based difficulty scaling.
 
-- **Contract Address:** `0x5328088D1C5eB19eC1a8cc2AcaB525a0f71ADb48`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x5328088D1C5eB19eC1a8cc2AcaB525a0f71ADb48)
+- **Contract Address:** `0x25be1D1cE7Ae3c33Cb622bAE58cCa4e23A69be36`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x25be1D1cE7Ae3c33Cb622bAE58cCa4e23A69be36)
 - **Source Code:** [number_fact_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/number_fact_oracle.py)
 
 #### 10. Player Registry
@@ -117,8 +117,8 @@ An intelligent contract that fetches real geographic data (name, country, elevat
 **Description:**
 An intelligent contract providing on-chain player registration with name, level, and XP tracking using GenLayer's `TreeMap` storage and `u256` integer types. Players register with a unique address and can level up through gameplay. This is the core identity layer for the Chain Quest RPG.
 
-- **Contract Address:** `0xC5F491350B19878044DEfc4549B72d59CA2AA455`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0xC5F491350B19878044DEfc4549B72d59CA2AA455)
+- **Contract Address:** `0x8B076d9500d2e877c7dD6F1f205823fe48EE2cB3`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x8B076d9500d2e877c7dD6F1f205823fe48EE2cB3)
 - **Source Code:** [player_registry.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/player_registry.py)
 
 #### 11. SOL Price Oracle
@@ -127,8 +127,8 @@ An intelligent contract providing on-chain player registration with name, level,
 **Description:**
 An intelligent contract that fetches the real-time Solana price from the Binance public API using `gl.nondet.web.get()`. The price is parsed from JSON, rounded to an integer for deterministic consensus, and validated through `gl.eq_principle.strict_eq`. Used in Chain Quest to set potion and spell costs.
 
-- **Contract Address:** `0x8aD72aEDa266Dc5be20F6eC26e6B52774fAfb23a`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x8aD72aEDa266Dc5be20F6eC26e6B52774fAfb23a)
+- **Contract Address:** `0x9B8B37BBE5e82D73C99f2e701D11F427C49f1716`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x9B8B37BBE5e82D73C99f2e701D11F427C49f1716)
 - **Source Code:** [sol_price_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/sol_price_oracle.py)
 
 #### 12. University Oracle
@@ -137,8 +137,8 @@ An intelligent contract that fetches the real-time Solana price from the Binance
 **Description:**
 An intelligent contract that fetches real university data from the Hipolabs Universities API using `gl.nondet.web.get()`. University name and country are parsed and pipe-delimited for consensus via `gl.eq_principle.strict_eq`. Used in Chain Quest to generate scholar NPC backgrounds and academy-themed quests.
 
-- **Contract Address:** `0x7702821e11743EE9dE0B4944F722Ed8E0bF24f1f`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x7702821e11743EE9dE0B4944F722Ed8E0bF24f1f)
+- **Contract Address:** `0x514DEAa35A11dce73bB6d4E4a1c4fD50305c8DFC`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x514DEAa35A11dce73bB6d4E4a1c4fD50305c8DFC)
 - **Source Code:** [university_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/university_oracle.py)
 
 #### 13. Weather Battle Oracle
@@ -147,8 +147,8 @@ An intelligent contract that fetches real university data from the Hipolabs Univ
 **Description:**
 An intelligent contract that fetches real temperature data from the Open-Meteo API using `gl.nondet.web.get()`. The temperature is parsed from JSON and validated through `gl.eq_principle.strict_eq`. The contract then deterministically sets battle conditions: FIRE (>35°C), ICE (<5°C), or NEUTRAL. This is the flagship oracle of Chain Quest.
 
-- **Contract Address:** `0x8107A929f1b7F9b2c549bc5645C942c9D1F006aE`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x8107A929f1b7F9b2c549bc5645C942c9D1F006aE)
+- **Contract Address:** `0x83863Cc33019917901bEd52Fcbd9CaFEeD729F6f`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x83863Cc33019917901bEd52Fcbd9CaFEeD729F6f)
 - **Source Code:** [weather_battle_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/weather_battle_oracle.py)
 
 #### 14. Wind Speed Oracle
@@ -157,8 +157,8 @@ An intelligent contract that fetches real temperature data from the Open-Meteo A
 **Description:**
 An intelligent contract that fetches real wind speed and direction from the Open-Meteo API using `gl.nondet.web.get()`. Both values are parsed from JSON and pipe-delimited for consensus via `gl.eq_principle.strict_eq`. Used in Chain Quest to determine sailing speed and flight mechanics.
 
-- **Contract Address:** `0x1045869F7DE3A264a169bB6572F4BBc619826C00`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x1045869F7DE3A264a169bB6572F4BBc619826C00)
+- **Contract Address:** `0x7a8D58c2C8Ff554f36079fAF38F9be5d820CaA07`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x7a8D58c2C8Ff554f36079fAF38F9be5d820CaA07)
 - **Source Code:** [wind_speed_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/wind_speed_oracle.py)
 
 #### 15. XRP Price Oracle
@@ -167,6 +167,6 @@ An intelligent contract that fetches real wind speed and direction from the Open
 **Description:**
 An intelligent contract that fetches the real-time XRP price from the Binance public API using `gl.nondet.web.get()`. The price is parsed from JSON, rounded to 2 decimal places for consensus stability, and validated through `gl.eq_principle.strict_eq`. Used in Chain Quest to calculate cross-realm travel costs.
 
-- **Contract Address:** `0x3160849592D43C3c2dC76199e9Fe7411cE34102c`
-- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x3160849592D43C3c2dC76199e9Fe7411cE34102c)
+- **Contract Address:** `0x70d36C5F3D40861fDaCA16F9A1Ce94D9500d5237`
+- **Explorer Link:** [View on GenLayer Studio](https://explorer-studio.genlayer.com/address/0x70d36C5F3D40861fDaCA16F9A1Ce94D9500d5237)
 - **Source Code:** [xrp_price_oracle.py](https://github.com/Dark-Brain07/genlayer--intelligent/blob/main/contracts/xrp_price_oracle.py)
